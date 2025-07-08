@@ -13,6 +13,7 @@ const useEmailValidation = (email, delay = 1000) => {
         }
     
         setValidationState('pending');
+        setErrorMessage('');
     
         const timer = setTimeout(() => {
             const validationCheck = Validator.validateEmail(email);
