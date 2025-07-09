@@ -1,12 +1,13 @@
-import { useState } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import useEmailValidation from '../hooks/useEmailValidation'
 import Validator from '../utils/validator'
-import './form.css'
 import Images from '../assets/images/index'
+import './form.css'
 
 export const Form = ({ onSubmit }) => {
   const [email, setEmail] = useState('');
-  const { validationState, errorMessage } = useEmailValidation(email, 1200);
+  let { validationState, errorMessage } = useEmailValidation(email, 1200);
+  const inputRef = useRef(null);
 
   const getStyle = () => {
     switch(validationState) {
@@ -20,8 +21,13 @@ export const Form = ({ onSubmit }) => {
   const handleSubmit =(e) => {
     e.preventDefault();
 
-    const checkFinalValidity = Validator.validateEmail(email);
-    onSubmit(checkFinalValidity.isValid ? true : false, email);
+    const finalValidation = Validator.validateEmail(email);
+    if (!finalValidation.isValid) {
+      return
+    }
+
+    inputRef.current.value = '';
+    onSubmit(finalValidation.isValid, email);
   }
 
   return (
@@ -60,6 +66,7 @@ export const Form = ({ onSubmit }) => {
           </div>
           <input 
                 type="email" 
+                ref={inputRef}
                 name="user_email"
                 id="user-email"
                 onChange={(e) => setEmail(e.target.value)} 
@@ -68,16 +75,36 @@ export const Form = ({ onSubmit }) => {
           <button 
                 type="submit" 
                 onClick={(e) => handleSubmit(e)}
-                className='w-full h-12 bg-Blue-800 rounded-lg text-White font-bold'>Subscribe to monthly newsletter</button>
+                className='w-full h-12 bg-Blue-800 text-White font-bold rounded-lg'>Subscribe to monthly newsletter</button>
         </form>
       </section>
     </article>
   )
 }
 
-export const SuccessDialogue = () => {
+export const SuccessModal = ({ shouldOpen, email }) => {
+  const dialogRef = useRef(null);
+
+  useEffect(() => {
+    if (shouldOpen) {
+      dialogRef.current.showModal();
+    }
+  }, [shouldOpen, email]);
+
+  const closeModal = () => {
+    if(dialogRef.current) {
+      dialogRef.current.close();
+    }
+  };
+
   return (
-    <h1>Hello world</h1>
-    /* To be coded */
+    <dialog ref={dialogRef} className='w-full h-full max-w-full max-h-full py-9 px-6 bg-White gap-6 open:flex open:flex-col justify-center'>
+      <img src={Images.listIconSuccess} alt="" className='w-15 h-15 mb-6'/>
+      <h2 className='text-[2.25rem] leading-10 font-bold text-Blue-800'>Thanks for subscribing!</h2>
+      <p className='text-Blue-700'>A confirmation mail has been set to <strong>{email}</strong>. Please open it and click the button inside to confirm your subscription</p>
+      <button type="button" 
+              onClick={closeModal}
+              className='w-full h-12 bg-Blue-800 text-White font-bold rounded-lg mt-auto'>Dismiss message</button>
+    </dialog>
   )
 }
