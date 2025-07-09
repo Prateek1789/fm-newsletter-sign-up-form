@@ -23,26 +23,28 @@ export const Form = ({ onSubmit }) => {
 
     const finalValidation = Validator.validateEmail(email);
     if (!finalValidation.isValid) {
-      return
+      return;
     }
 
     inputRef.current.value = '';
     onSubmit(finalValidation.isValid, email);
+    setEmail('');
   }
 
   return (
-    <article className='newsletter-card h-screen w-screen max-w-[26.875rem] bg-white grid grid-cols-1 grid-rows-[minmax(0rem,2fr)_3fr]'>
+    <article className='newsletter-card h-screen w-screen max-w-[26.875rem] bg-white grid grid-cols-1 grid-rows-[minmax(0rem,2fr)_3fr] md:gap-6 md:p-6 lg:p-6 lg:pl-16 lg:gap-16 xl:pl-4 xl:gap-16'>
       <picture className='w-full h-full'>
-        <source media='(min-width: 48rem)' srcSet={Images.bgTablet} />
-        <source media='(min-width: 64rem)' srcSet={Images.bgDesktop} />
+        <source media="(min-width: 48rem)" srcSet={Images.bgTablet} type="image/svg+xml" />
+        <source media="(min-width: 64rem)" srcSet={Images.bgDesktop} type="image/svg+xml" />
         <img 
             src={Images.bgMobile} 
             alt="Form Image" 
-            className='w-full h-full object-cover object-bottom' />
+            type="image/svg+xml"
+            className='w-full h-full object-cover object-bottom md:[grid-area:image] md:rounded-2xl' />
       </picture>
-      <section className='w-full h-full py-6 px-4 flex flex-col justify-between'>
+      <section className='w-full h-full py-6 px-4 flex flex-col justify-between md:[grid-area:form] md:!px-0 xl:!pl-12'>
         <div>
-          <h1 className="heading text-2xl font-bold mb-2">Stay updated!</h1>
+          <h1 className="heading text-2xl text-Blue-800 font-bold mb-2 xl:!text-[3.25rem]">Stay updated!</h1>
           <p className='text-sm'>Join 60,000+ product managers receiving monthly updates on:</p>
         </div>
         <ul className='flex flex-col gap-2'>
