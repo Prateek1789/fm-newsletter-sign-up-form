@@ -1,19 +1,22 @@
 import { useState } from 'react'
 import './App.css'
-import { Form } from './components/newsLetterForm'
+import { Form, SuccessModal } from './components/newsLetterForm'
 
 function App() {
   const [userEmail, setUserEmail] = useState('');
-  const [modalState, setModalState] = useState(false);
+  const [isValid, setIsValid] = useState(false);
 
   const handleModal = (isValid, email) => {
+    if (!isValid) return;
+    
     setUserEmail(email);
-    setModalState(isValid);
+    setIsValid(true);
   }
 
   return (
     <>
       <Form onSubmit = { handleModal } />
+      <SuccessModal shouldOpen={isValid} email={userEmail} />
     </>
   )
 }
