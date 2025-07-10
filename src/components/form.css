@@ -131,6 +131,20 @@ li {
         grid-template-areas: 
             "form image";
     }
+    
+    dialog {
+        padding-block-end: 0rem;
+    }
+
+    dialog img {
+        height: 4.5rem;
+        width: 4.5rem;
+        margin-top: 0rem;
+    }
+
+    dialog h2 {
+        @apply text-6xl leading-15
+    }
   }
 
   @media (min-width: 64rem) {
@@ -139,5 +153,9 @@ li {
     }
     p {
         @apply text-[1rem];
+    }
+    button:hover {
+        background: linear-gradient(90deg, rgb(253, 62, 94), var(--color-primary));
+        transition-behavior: ease-in-out;
     }
   }
