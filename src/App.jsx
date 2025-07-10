@@ -4,19 +4,19 @@ import { Form, SuccessModal } from './components/newsLetterForm'
 
 function App() {
   const [userEmail, setUserEmail] = useState('');
-  const [isValid, setIsValid] = useState(false);
+  const [submissionCount, setSubmissionCount] = useState(0);
 
-  const handleModal = (isValid, email) => {
-    if (!isValid) return;
+  const handleModal = (email) => {
+    if (!email) return;
     
     setUserEmail(email);
-    setIsValid(true);
+    setSubmissionCount(prev => prev + 1);
   }
 
   return (
     <>
       <Form onSubmit = { handleModal } />
-      <SuccessModal shouldOpen={isValid} email={userEmail} />
+      <SuccessModal email={userEmail} subCount={submissionCount} />
     </>
   )
 }
