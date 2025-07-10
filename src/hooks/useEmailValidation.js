@@ -1,11 +1,17 @@
 import { useState, useEffect } from "react";
 import Validator from '../utils/validator'
 
-const useEmailValidation = (email, delay = 1000) => {
+const useEmailValidation = (email, subAttempt, delay = 1000) => {
     const [validationState, setValidationState] = useState('idle');
     const [errorMessage, setErrorMessage] = useState('');
 
     useEffect(() => {
+        if (subAttempt && !email) {
+            setValidationState('invalid');
+            setErrorMessage('Email is required');
+            return;
+        }
+
         if (!email) {
             setValidationState('idle');
             setErrorMessage('');
@@ -22,7 +28,7 @@ const useEmailValidation = (email, delay = 1000) => {
         }, delay);
     
         return () => clearTimeout(timer);
-    }, [ email ]);
+    }, [ email, subAttempt ]);
 
    return { validationState, errorMessage } 
 }  
