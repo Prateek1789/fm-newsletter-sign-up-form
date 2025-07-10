@@ -39,8 +39,8 @@ export const Form = ({ onSubmit }) => {
   return (
     <article className='newsletter-card h-screen w-screen max-w-[26.875rem] bg-white grid grid-cols-1 grid-rows-[minmax(0rem,2fr)_3fr] md:gap-6 md:p-6 lg:p-6 lg:pl-16 lg:gap-16 xl:pl-4 xl:gap-16'>
       <picture className='w-full h-full'>
-        <source media="(min-width: 48rem)" srcSet={Images.bgTablet} type="image/svg+xml" />
         <source media="(min-width: 64rem)" srcSet={Images.bgDesktop} type="image/svg+xml" />
+        <source media="(min-width: 48rem)" srcSet={Images.bgTablet} type="image/svg+xml" />
         <img 
             src={Images.bgMobile} 
             alt="Form Image" 
