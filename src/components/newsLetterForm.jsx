@@ -10,6 +10,11 @@ export const Form = ({ onSubmit }) => {
   let { validationState, errorMessage } = useEmailValidation(email, attemptedSub, 1200);
   const inputRef = useRef(null);
 
+  const handleEmailChange = (input) => {
+    setEmail(input);
+    if(attemptedSub) setAttemptedSub(false);
+  }
+
   const getStyle = () => {
     switch(validationState) {
       case 'pending': return '';
@@ -71,7 +76,7 @@ export const Form = ({ onSubmit }) => {
                 ref={inputRef}
                 name="user_email"
                 id="user-email"
-                onChange={(e) => setEmail(e.target.value)} 
+                onChange={(e) => handleEmailChange(e.target.value)} 
                 placeholder='email@company.com'
                 className={`w-full h-12 border-[1px] rounded-lg mb-4 px-6 focus:outline-0 ${getStyle()}`}/>
           <button 
