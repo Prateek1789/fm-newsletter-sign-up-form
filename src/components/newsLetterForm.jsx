@@ -77,7 +77,7 @@ export const Form = ({ onSubmit }) => {
           <button 
                 type="submit" 
                 onClick={(e) => handleSubmit(e)}
-                className='w-full h-12 bg-Blue-800 text-White font-bold rounded-lg'>Subscribe to monthly newsletter</button>
+                className='w-full h-12 bg-Blue-800 text-White font-bold rounded-lg lg:cursor-pointer lg:hover:shadow-2xl lg:hover:shadow-red-400 lg:hover:transition-all lg:hover:duration-200'>Subscribe to monthly newsletter</button>
         </form>
       </section>
     </article>
@@ -100,13 +100,14 @@ export const SuccessModal = ({ shouldOpen, email }) => {
   };
 
   return (
-    <dialog ref={dialogRef} className='w-full h-full max-w-full max-h-full py-9 px-6 bg-White gap-6 open:flex open:flex-col justify-center'>
-      <img src={Images.listIconSuccess} alt="" className='w-15 h-15 mb-6'/>
+    <dialog ref={dialogRef} 
+            className='w-full h-full max-w-full max-h-full py-9 px-6 bg-White gap-6 open:flex open:flex-col justify-center md:w-[34rem] md:h-[34rem] md:absolute md:top-1/2 md:left-1/2 md:-translate-y-1/2 md:-translate-x-1/2 md:rounded-4xl md:backdrop:bg-Blue-800 md:py-12 md:px-16 md:open:justify-start md:gap-8'>
+      <img src={Images.listIconSuccess} alt="" className='w-15 h-15 mb-6 md:mb-0'/>
       <h2 className='text-[2.25rem] leading-10 font-bold text-Blue-800'>Thanks for subscribing!</h2>
       <p className='text-Blue-700'>A confirmation mail has been set to <strong>{email}</strong>. Please open it and click the button inside to confirm your subscription</p>
       <button type="button" 
               onClick={closeModal}
-              className='w-full h-12 bg-Blue-800 text-White font-bold rounded-lg mt-auto'>Dismiss message</button>
+              className='w-full h-12 bg-Blue-800 text-White font-bold focus:outline-0 rounded-lg mt-auto md:mt-0 lg:cursor-pointer lg:hover:shadow-2xl lg:hover:shadow-red-400 lg:hover:transition-all lg:hover:duration-200'>Dismiss message</button>
     </dialog>
   )
 }
