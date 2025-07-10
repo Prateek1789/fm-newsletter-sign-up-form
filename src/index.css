@@ -15,7 +15,7 @@
 @theme {
   /* Accent Color */
   --color-primary: hsl(4, 100%, 67%);
-
+  --color-gradient: linear-gradient(90deg, rgb(253, 62, 94), var(--color-primary));
   /* Neutral Colors */
   --color-Blue-800: hsl(234, 29%, 20%);
   --color-Blue-700: hsl(235, 18%, 26%);
