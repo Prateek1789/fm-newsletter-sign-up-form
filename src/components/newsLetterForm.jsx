@@ -6,7 +6,8 @@ import './form.css'
 
 export const Form = ({ onSubmit }) => {
   const [email, setEmail] = useState('');
-  let { validationState, errorMessage } = useEmailValidation(email, 1200);
+  const [attemptedSub, setAttemptedSub] = useState(false);
+  let { validationState, errorMessage } = useEmailValidation(email, attemptedSub, 1200);
   const inputRef = useRef(null);
 
   const getStyle = () => {
@@ -20,15 +21,14 @@ export const Form = ({ onSubmit }) => {
 
   const handleSubmit =(e) => {
     e.preventDefault();
+    setAttemptedSub(true);
 
-    const finalValidation = Validator.validateEmail(email);
-    if (!finalValidation.isValid) {
-      return;
+    if (validationState === 'valid') {
+      onSubmit(email);
+      inputRef.current.value = '';
+      setEmail('');
+      setAttemptedSub(false);
     }
-
-    inputRef.current.value = '';
-    onSubmit(finalValidation.isValid, email);
-    setEmail('');
   }
 
   return (
@@ -84,19 +84,15 @@ export const Form = ({ onSubmit }) => {
   )
 }
 
-export const SuccessModal = ({ shouldOpen, email }) => {
+export const SuccessModal = ({ email, subCount }) => {
   const dialogRef = useRef(null);
 
   useEffect(() => {
-    if (shouldOpen) {
-      dialogRef.current.showModal();
-    }
-  }, [shouldOpen, email]);
+    if (subCount > 0) dialogRef.current.showModal(); 
+  }, [subCount]);
 
   const closeModal = () => {
-    if(dialogRef.current) {
-      dialogRef.current.close();
-    }
+    if(dialogRef.current) dialogRef.current.close();
   };
 
   return (
