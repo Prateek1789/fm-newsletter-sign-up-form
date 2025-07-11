@@ -1,10 +1,15 @@
 @import "tailwindcss";
 
+:root {
+    --color-Pink-400: rgb(253, 62, 94);
+    --color-button-gradient: linear-gradient(90deg, var(--color-Pink-400), var(--color-primary));
+}
+
 li {
     display: flex;
     gap: 1rem;
     align-items: center;
-    font-size: 14px;
+    font-size: 0.875rem;
 }
 
 /* input:-webkit-autofill {
@@ -38,7 +43,7 @@ li {
     }
 
     ul {
-        margin-bottom: 0.25rem;
+        margin-block-end: 0.25rem;
     }
 
     li {
@@ -128,8 +133,7 @@ li {
   @media (min-width: 48rem) {
     article {
         @apply max-h-[42.24rem] w-full max-w-[60rem] grid-cols-2 grid-rows-1 rounded-4xl;
-        grid-template-areas: 
-            "form image";
+        grid-template-areas: "form image";
     }
     
     dialog {
@@ -155,7 +159,13 @@ li {
         @apply text-[1rem];
     }
     button:hover {
-        background: linear-gradient(90deg, rgb(253, 62, 94), var(--color-primary));
-        transition-behavior: ease-in-out;
+        background: var(--color-button-gradient);
+        transition-timing-function: ease;
     }
   }
+
+@media (prefers-reduced-motion: reduce) {
+    button {
+        transition: none;
+    }
+}
