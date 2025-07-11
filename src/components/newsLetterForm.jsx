@@ -1,13 +1,12 @@
 import { useState, useEffect, useRef } from 'react'
 import useEmailValidation from '../hooks/useEmailValidation'
-import Validator from '../utils/validator'
 import Images from '../assets/images/index'
 import './form.css'
 
 export const Form = ({ onSubmit }) => {
   const [email, setEmail] = useState('');
   const [attemptedSub, setAttemptedSub] = useState(false);
-  let { validationState, errorMessage } = useEmailValidation(email, attemptedSub, 1200);
+  const { validationState, errorMessage } = useEmailValidation(email, attemptedSub, 1200);
   const inputRef = useRef(null);
 
   const handleEmailChange = (input) => {
