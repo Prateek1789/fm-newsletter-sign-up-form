@@ -14,10 +14,10 @@ function App() {
   }
 
   return (
-    <>
+    <main>
       <Form onSubmit = { handleModal } />
       <SuccessModal email={userEmail} subCount={submissionCount} />
-    </>
+    </main>
   )
 }
 
